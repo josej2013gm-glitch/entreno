@@ -1,0 +1,10 @@
+{
+  "name": "Entrenos · Oposición Policía Local",
+  "short_name": "Entrenos",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#1f5fbf",
+  "icons": [{ "src": "img/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

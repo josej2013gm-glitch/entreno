@@ -1,0 +1,2392 @@
+{
+ "version": 1,
+ "description": "Historial de carrera 05/01/2026 - 07/11/2026 importado de la hoja Registro Físicas",
+ "sessions": [
+  {
+   "date": "2026-01-05",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 6000,
+     "time": 2688.0
+    }
+   ],
+   "notes": "FC media 160 ppm",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-01-06",
+   "segments": [
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 8.1
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 8.4
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 9.8
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 9.8
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 9.5
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 9.5
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-01-08",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 46.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 38.0,
+     "rest": 77
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 36.0,
+     "rest": 56
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 38.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 40.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 45.0,
+     "rest": 126
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 37.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 41.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-02-01",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 28.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 25.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 22.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 23.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 21.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 20.0,
+     "rest": 210
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 20.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 19.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 21.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 17.0,
+     "rest": 183
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-02-03",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 2800,
+     "time": 1114.0
+    }
+   ],
+   "notes": "FC media 151/150",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-02-10",
+   "segments": [
+    {
+     "kind": "test1000",
+     "dist": 1000,
+     "time": 275.0
+    }
+   ],
+   "notes": "Simulacro 1000 m. FC media 150, cadencia media 160",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-02-13",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4300,
+     "time": 1500.0
+    },
+    {
+     "kind": "rodaje",
+     "dist": 2000,
+     "time": 725.0
+    }
+   ],
+   "notes": "FC media 163 y 156",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-02-18",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 41.0
+    },
+    {
+     "kind": "serie",
+     "dist": 100,
+     "time": 21.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 91.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-02-20",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 10860,
+     "time": 4592.0
+    }
+   ],
+   "notes": "FC media 165. 6 fartlek",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-02-24",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 450,
+     "time": 120.0
+    },
+    {
+     "kind": "serie",
+     "dist": 410,
+     "time": 120.0
+    },
+    {
+     "kind": "serie",
+     "dist": 410,
+     "time": 120.0
+    },
+    {
+     "kind": "serie",
+     "dist": 450,
+     "time": 120.0
+    },
+    {
+     "kind": "serie",
+     "dist": 430,
+     "time": 120.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-02-27",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 84.0,
+     "rest": 300
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 89.0,
+     "rest": 300
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 87.0,
+     "rest": 300
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 90.0,
+     "rest": 300
+    },
+    {
+     "kind": "rodaje",
+     "dist": 3000,
+     "time": 1080.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-03-03",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 43.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 42.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 40.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 41.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 38.0,
+     "rest": 120
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-03-05",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 93.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 180
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 91.0,
+     "rest": 180
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 41.0,
+     "rest": 180
+    }
+   ],
+   "notes": "3 km previos antes del primer 400",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-03-07",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 5700,
+     "time": 2700.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-03-10",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 38.0,
+     "rest": 240
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 210
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 40.0,
+     "rest": 90
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 40.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 40.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0,
+     "rest": 120
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-03-12",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 133.0,
+     "rest": 240
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0,
+     "rest": 360
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 85.0,
+     "rest": 360
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 89.0,
+     "rest": 240
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-03-18",
+   "segments": [
+    {
+     "kind": "test1000",
+     "dist": 1000,
+     "time": 225.0,
+     "splits": [
+      80,
+      93,
+      52
+     ]
+    }
+   ],
+   "notes": "Simulacro 1000 m",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-03-20",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 800,
+     "time": 185.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 37.0,
+     "rest": 900
+    },
+    {
+     "kind": "serie",
+     "dist": 800,
+     "time": 187.0,
+     "rest": 360
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 36.0,
+     "rest": 180
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0,
+     "rest": 150
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 33.0,
+     "rest": 180
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-03-24",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1355.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-03-27",
+   "segments": [
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 8.8
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 8.4
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 8.3
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 82.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 90.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-04-07",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3000,
+     "time": 1057.0
+    }
+   ],
+   "notes": "Dolor rodilla izquierda en el último km",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-04-14",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 1000,
+     "time": 282.0
+    }
+   ],
+   "notes": "Buenas sensaciones, molestias 2/10",
+   "pain": 2,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-04-21",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 2000,
+     "time": 749.0
+    }
+   ],
+   "notes": "0 molestias",
+   "pain": 0,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-04-23",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 2000,
+     "time": 613.0
+    }
+   ],
+   "notes": "0 molestias",
+   "pain": 0,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-04-26",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3000,
+     "time": 1032.0
+    }
+   ],
+   "notes": "Molestias 1/10",
+   "pain": 1,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-04-28",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 362.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 50.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 40.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 41.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 38.0
+    },
+    {
+     "kind": "rodaje",
+     "dist": 900,
+     "time": 370.0
+    }
+   ],
+   "notes": "Pinchazo rodilla 6/10 en el rodaje final",
+   "pain": 6,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-05-01",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3600,
+     "time": 1300.0
+    }
+   ],
+   "notes": "1 km calentamiento + fartlek 5x2:1",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-05-03",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 2000,
+     "time": 690.0
+    }
+   ],
+   "notes": "Fartlek 5x2:1. Molestias 2/10 los últimos 500 m",
+   "pain": 2,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-05-05",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3000,
+     "time": 1212.0
+    }
+   ],
+   "notes": "0 molestias",
+   "pain": 0,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-05-07",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 800,
+     "time": 311.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 45.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 45.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 44.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 41.0
+    },
+    {
+     "kind": "enfriamiento",
+     "dist": 500,
+     "time": 156.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-05-09",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 2000,
+     "time": 580.0
+    }
+   ],
+   "notes": "0 molestias",
+   "pain": 0,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-05-12",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 93.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 91.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 40.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 40.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 41.0
+    },
+    {
+     "kind": "rodaje",
+     "dist": 1000,
+     "time": 380.0
+    },
+    {
+     "kind": "rodaje",
+     "dist": 800,
+     "time": 300.0
+    }
+   ],
+   "notes": "0 molestias en series; molestias 1/10 al final",
+   "pain": 1,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-05-16",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 348.0
+    },
+    {
+     "kind": "serie",
+     "dist": 460,
+     "time": 120.0
+    },
+    {
+     "kind": "serie",
+     "dist": 480,
+     "time": 120.0
+    },
+    {
+     "kind": "serie",
+     "dist": 440,
+     "time": 120.0
+    },
+    {
+     "kind": "serie",
+     "dist": 420,
+     "time": 120.0
+    },
+    {
+     "kind": "serie",
+     "dist": 420,
+     "time": 120.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-05-19",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 95.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 94.0
+    },
+    {
+     "kind": "rodaje",
+     "dist": 1000,
+     "time": 317.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-05-21",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3000,
+     "time": 985.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-05-23",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 1000,
+     "time": 246.0
+    },
+    {
+     "kind": "rodaje",
+     "dist": 1000,
+     "time": 362.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-05-25",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 84.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 88.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-05-30",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1384.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-06-01",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 366.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 34.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 85.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 33.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-06-04",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 2000,
+     "time": 660.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 80.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 79.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 82.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-06-06",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 341.0
+    },
+    {
+     "kind": "test1000",
+     "dist": 1000,
+     "time": 223.0,
+     "splits": [
+      89,
+      94,
+      40
+     ]
+    }
+   ],
+   "notes": "Simulacro 1000 m",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-06-08",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 131.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 81.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 36.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0
+    }
+   ],
+   "notes": "Sensación rara en la rodilla (cintilla), 0 dolor ni molestia",
+   "pain": 0,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-06-15",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 89.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 81.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 85.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-06-17",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 2000,
+     "time": 681.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-06-22",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 1500,
+     "time": 480.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-06-26",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 2000,
+     "time": 810.0
+    },
+    {
+     "kind": "serie",
+     "dist": 800,
+     "time": 183.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 136.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 92.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-06-29",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 2380,
+     "time": 900.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-07-01",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 410.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 128.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 79.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 34.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-07-04",
+   "segments": [
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 7.33
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 34.0
+    }
+   ],
+   "notes": "Test 50 m: 3 intentos, solo se registró la mejor marca",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-07-07",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3000,
+     "time": 1119.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-07-09",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 324.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 131.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 81.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 34.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-07-13",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1700,
+     "time": 600.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 127.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 132.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-07-17",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3600,
+     "time": 1440.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-07-21",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 335.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 90.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 81.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 90.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 85.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-07-27",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 313.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 34.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-08-01",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 7460,
+     "time": 3000.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-08-03",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1500,
+     "time": 512.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 126.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 79.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 32.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-08-06",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 6000,
+     "time": 2160.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-08-08",
+   "segments": [
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 7.24
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 6.88,
+     "excluded": true
+    }
+   ],
+   "notes": "Test 50 m. El 6,88 s se excluye de estadísticas (probable error de cronometraje)",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-08-11",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 2000,
+     "time": 600.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 83.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 39.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 36.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-08-13",
+   "segments": [
+    {
+     "kind": "test1000",
+     "dist": 1000,
+     "time": 219.0,
+     "splits": [
+      89,
+      94,
+      39
+     ]
+    }
+   ],
+   "notes": "Simulacro 1000 m. Ojo: los parciales suman 3:42",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-08-17",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 8000,
+     "time": 2979.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-08-19",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 5660,
+     "time": 2046.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-08-25",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4760,
+     "time": 1652.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-08-27",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 41.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 85.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 127.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 85.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-08-29",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 6640,
+     "time": 2400.0
+    }
+   ],
+   "notes": "1 km + fartlek 10x1:2",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-09-02",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 283.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 89.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 85.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 83.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 82.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-09-05",
+   "segments": [
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 7.24
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 7.21
+    },
+    {
+     "kind": "test1000",
+     "dist": 1000,
+     "time": 217.0,
+     "splits": [
+      88,
+      90,
+      39
+     ]
+    }
+   ],
+   "notes": "Simulacro 50 m + 1000 m",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-09-07",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1375.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-09-09",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 90.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 87.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 83.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 84.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 83.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-09-11",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 5000,
+     "time": 1920.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-09-14",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1300,
+     "time": 420.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 82.0,
+     "rest": 60
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 81.0,
+     "rest": 60
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 34.0,
+     "rest": 60
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-09-16",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1392.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-09-19",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 89.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 86.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 82.0,
+     "rest": 120
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 85.0,
+     "rest": 120
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-09-21",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 5000,
+     "time": 1707.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-09-24",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1630,
+     "time": 600.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 130.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 77.0
+    },
+    {
+     "kind": "serie",
+     "dist": 300,
+     "time": 56.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-09-26",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3000,
+     "time": 915.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-09-28",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1445.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-09-30",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1320,
+     "time": 480.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 84.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 80.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 34.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 32.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-10-03",
+   "segments": [
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 7.15
+    },
+    {
+     "kind": "test50",
+     "dist": 50,
+     "time": 7.2
+    },
+    {
+     "kind": "test1000",
+     "dist": 1000,
+     "time": 210.0,
+     "splits": [
+      83,
+      87,
+      40
+     ]
+    }
+   ],
+   "notes": "Simulacro 50 m + 1000 m",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "simulacro"
+  },
+  {
+   "date": "2026-10-05",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1463.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-10-07",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1387.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-10-10",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1704.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-10-13",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 5000,
+     "time": 1839.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-10-15",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 132.0
+    },
+    {
+     "kind": "serie",
+     "dist": 600,
+     "time": 127.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-10-16",
+   "segments": [
+    {
+     "kind": "serie",
+     "dist": 120,
+     "time": 29.0
+    },
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1471.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-10-19",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1345.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-10-21",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1000,
+     "time": 404.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 95.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 92.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 87.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 79.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-10-24",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 6320,
+     "time": 2764.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-10-27",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 5000,
+     "time": 2322.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-10-29",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 1500,
+     "time": 590.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 91.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 91.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 83.0
+    },
+    {
+     "kind": "serie",
+     "dist": 400,
+     "time": 83.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-11-02",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 3000,
+     "time": 988.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  },
+  {
+   "date": "2026-11-05",
+   "segments": [
+    {
+     "kind": "calentamiento",
+     "dist": 2000,
+     "time": 720.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 35.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 36.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 37.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 38.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 36.0
+    },
+    {
+     "kind": "serie",
+     "dist": 200,
+     "time": 36.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "series"
+  },
+  {
+   "date": "2026-11-07",
+   "segments": [
+    {
+     "kind": "rodaje",
+     "dist": 4000,
+     "time": 1477.0
+    }
+   ],
+   "notes": "",
+   "pain": null,
+   "rpe": null,
+   "source": "historial",
+   "type": "rodaje"
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Entrenos · Oposición Policía Local</title>
+  <meta name="description" content="Registro y planificación de entrenamientos de carrera (1000 m y 50 m) para la oposición a Policía Local." />
+  <meta name="theme-color" content="#1f5fbf" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="img/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="img/icon.svg" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Gráficos (Chart.js, gratuito, CDN jsDelivr) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="img/icon.svg" alt="" width="28" height="28" /><span>Entrenos <small>Policía Local</small></span></div>
+    <div id="userbox" class="userbox"></div>
+  </header>
+
+  <div id="modebanner" class="banner hidden"></div>
+
+  <nav id="nav" class="nav hidden" aria-label="Secciones">
+    <a href="#panel" data-view="panel">📊<span>Panel</span></a>
+    <a href="#plan" data-view="plan">🗓️<span>Plan</span></a>
+    <a href="#registrar" data-view="registrar">➕<span>Registrar</span></a>
+    <a href="#historial" data-view="historial">📚<span>Historial</span></a>
+    <a href="#extras" data-view="extras">💪<span>Extras</span></a>
+    <a href="#ia" data-view="ia">🤖<span>IA</span></a>
+    <a href="#ajustes" data-view="ajustes">⚙️<span>Ajustes</span></a>
+  </nav>
+
+  <main id="main">
+    <section id="view-login" class="view hidden">
+      <div class="card login">
+        <img src="img/icon.svg" alt="" width="64" height="64" />
+        <h1>Control de entrenamientos</h1>
+        <p>Registra tus sesiones de 1000 m y 50 m, sigue el plan y genera los siguientes bloques con IA.</p>
+        <button id="btn-login" class="btn primary big">Entrar con Google</button>
+        <p class="muted small" id="login-error"></p>
+      </div>
+    </section>
+    <section id="view-loading" class="view"><div class="loading">Cargando…</div></section>
+    <section id="view-panel" class="view hidden"></section>
+    <section id="view-plan" class="view hidden"></section>
+    <section id="view-registrar" class="view hidden"></section>
+    <section id="view-historial" class="view hidden"></section>
+    <section id="view-extras" class="view hidden"></section>
+    <section id="view-ia" class="view hidden"></section>
+    <section id="view-ajustes" class="view hidden"></section>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true"><div class="modal-box"><div id="modal-body"></div><div class="modal-actions"><button class="btn" id="modal-close">Cerrar</button></div></div></div>
+  <div id="toast" class="toast hidden"></div>
+  <input type="file" id="filepicker" accept="application/json,.json" class="hidden" />
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
