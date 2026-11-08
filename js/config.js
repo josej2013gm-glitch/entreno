@@ -10,12 +10,12 @@
 // =====================================================================
 
 export const firebaseConfig = {
-  apiKey: "PEGA_AQUI_TU_API_KEY_DE_FIREBASE",
-  authDomain: "TU-PROYECTO.firebaseapp.com",
-  projectId: "TU-PROYECTO",
-  storageBucket: "TU-PROYECTO.firebasestorage.app",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:0000000000000000000000",
+  apiKey: "AIzaSyDVXwKOoyxlAYHw6shTuA96twdgrzNSClc", 
+  authDomain: "entrenos-61672.firebaseapp.com", 
+  projectId: "entrenos-61672", 
+  storageBucket: "entrenos-61672.firebasestorage.app", 
+  messagingSenderId: "891424703354", 
+  appId: "1:891424703354:web:9eea36282ac5ed44acccc3" 
 };
 
 // Versión del SDK de Firebase que se descarga del CDN oficial (gstatic).
