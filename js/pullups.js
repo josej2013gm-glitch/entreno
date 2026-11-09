@@ -2,7 +2,7 @@
 //  pullups.js — Planes de dominadas (planificados a mano, importados por JSON)
 //  No intervienen en la planificación con IA, que es solo de carrera.
 // =====================================================================
-import { dowOf, parseTime, fmtTime } from './algorithm.js';
+import { dowOf, parseTime, fmtTime } from './algorithm.js?v=20261109b';
 
 export const isPullPlan = p => p && p.discipline === 'dominadas';
 

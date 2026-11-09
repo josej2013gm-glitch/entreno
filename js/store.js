@@ -10,7 +10,7 @@
 //    users/{uid}/plans/{id}             → planes (Bloque I, planes IA…)
 //    users/{uid}/extras/{id}            → salto a pies juntos y dominadas
 // =====================================================================
-import { firebaseConfig, FIREBASE_VERSION } from './config.js';
+import { firebaseConfig, FIREBASE_VERSION } from './config.js?v=20261109b';
 
 export const COLLECTIONS = ['sessions', 'plans', 'extras'];
 const isConfigured = () => firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('PEGA_AQUI') && !firebaseConfig.projectId.startsWith('TU-PROYECTO');

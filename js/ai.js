@@ -4,7 +4,7 @@
 //  Ajustes, dentro de tu cuenta). Restringe la key a tu dominio de
 //  GitHub Pages (Manual, paso 7).
 // =====================================================================
-import * as A from './algorithm.js';
+import * as A from './algorithm.js?v=20261109b';
 
 const API = 'https://generativelanguage.googleapis.com/v1beta';
 
