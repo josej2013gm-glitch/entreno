@@ -1,0 +1,731 @@
+{
+ "name": "Bloque específico I (9/11 – 6/12/2026)",
+ "source": "informe",
+ "objective1000": "3:25",
+ "objective50": 7.0,
+ "notes": "3 semanas de carga progresiva + 1 de descarga con simulacro el sábado 5/12. Los km se cuentan como en la hoja: calentamiento + trabajo, sin recuperaciones.",
+ "weeks": [
+  {
+   "n": 1,
+   "title": "Activación específica",
+   "focus": "≈13 km · volver a meter ritmo 3:25/km y velocidad",
+   "sessions": [
+    {
+     "date": "2026-11-09",
+     "type": "rodaje",
+     "title": "Rodaje + rectas",
+     "content": "3 km suaves + 4×80 m progresivos (vuelta andando)",
+     "targets": "Rodaje 5:45–6:10/km",
+     "km": 3.3,
+     "prefill": [
+      {
+       "kind": "rodaje",
+       "dist": 3000
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      }
+     ]
+    },
+    {
+     "date": "2026-11-10",
+     "type": "fuerza",
+     "title": "Fuerza A",
+     "content": "Potencia de tren inferior. Sentadilla o búlgara 4×5 · peso muerto rumano 3×6 · 3×5 saltos con contramovimiento · gemelo 3×12. Puedes registrar aquí también salto a pies juntos y dominadas.",
+     "targets": "—",
+     "km": 0,
+     "prefill": []
+    },
+    {
+     "date": "2026-11-11",
+     "type": "series",
+     "title": "Específico 1000 · 6×400 m",
+     "content": "1,5 km de calentamiento + 6×400 m, recuperación 2:00 trotando",
+     "targets": "400 m en 1:23 (3:27/km)",
+     "km": 3.9,
+     "prefill": [
+      {
+       "kind": "calentamiento",
+       "dist": 1500
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:23",
+       "rest": "2:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:23",
+       "rest": "2:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:23",
+       "rest": "2:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:23",
+       "rest": "2:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:23",
+       "rest": "2:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:23",
+       "rest": "2:00"
+      }
+     ],
+     "evaluate": true,
+     "ladderLevel": 1
+    },
+    {
+     "date": "2026-11-12",
+     "type": "fuerza",
+     "title": "Fuerza B",
+     "content": "Estabilidad de cadera y rodilla. Hip thrust 4×6 · puente lateral 3×30 s · abducción con goma 3×15 · step-down excéntrico 3×8 · core. Clave para la cintilla iliotibial.",
+     "targets": "—",
+     "km": 0,
+     "prefill": []
+    },
+    {
+     "date": "2026-11-13",
+     "type": "velocidad",
+     "title": "Velocidad 50 m",
+     "content": "1 km de calentamiento + técnica (skipping, A/B) + 6×30 m salida (rec. 2:00) + 3×50 m al máximo (rec. 4:00) + 2×200 m (rec. 3:00)",
+     "targets": "200 m en 0:38",
+     "km": 1.8,
+     "prefill": [
+      {
+       "kind": "calentamiento",
+       "dist": 1000
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 200,
+       "target": "0:38",
+       "rest": "3:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 200,
+       "target": "0:38",
+       "rest": "3:00"
+      }
+     ]
+    },
+    {
+     "date": "2026-11-15",
+     "type": "rodaje",
+     "title": "Rodaje progresivo",
+     "content": "4 km: 3 km suaves + 1 km vivo",
+     "targets": "6:00 → 5:15/km",
+     "km": 4.0,
+     "prefill": [
+      {
+       "kind": "rodaje",
+       "dist": 3000
+      },
+      {
+       "kind": "rodaje",
+       "dist": 1000,
+       "target": "5:15"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "title": "Alargar la serie",
+   "focus": "≈14 km · de 400 a 500 m a ritmo objetivo",
+   "sessions": [
+    {
+     "date": "2026-11-16",
+     "type": "rodaje",
+     "title": "Rodaje + rectas",
+     "content": "3,5 km + 4×80 m",
+     "targets": "5:45–6:10/km",
+     "km": 3.8,
+     "prefill": [
+      {
+       "kind": "rodaje",
+       "dist": 3500
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      }
+     ]
+    },
+    {
+     "date": "2026-11-17",
+     "type": "fuerza",
+     "title": "Fuerza A",
+     "content": "Sentadilla o búlgara 4×5 · peso muerto rumano 3×6 · 3×5 saltos con contramovimiento · gemelo 3×12. Puedes registrar aquí también salto a pies juntos y dominadas.",
+     "targets": "—",
+     "km": 0,
+     "prefill": []
+    },
+    {
+     "date": "2026-11-18",
+     "type": "series",
+     "title": "Específico 1000 · 5×500 m",
+     "content": "1,5 km + 5×500 m, recuperación 2:30",
+     "targets": "500 m en 1:43 (3:26/km)",
+     "km": 4.0,
+     "prefill": [
+      {
+       "kind": "calentamiento",
+       "dist": 1500
+      },
+      {
+       "kind": "serie",
+       "dist": 500,
+       "target": "1:43",
+       "rest": "2:30"
+      },
+      {
+       "kind": "serie",
+       "dist": 500,
+       "target": "1:43",
+       "rest": "2:30"
+      },
+      {
+       "kind": "serie",
+       "dist": 500,
+       "target": "1:43",
+       "rest": "2:30"
+      },
+      {
+       "kind": "serie",
+       "dist": 500,
+       "target": "1:43",
+       "rest": "2:30"
+      },
+      {
+       "kind": "serie",
+       "dist": 500,
+       "target": "1:43",
+       "rest": "2:30"
+      }
+     ],
+     "evaluate": true,
+     "ladderLevel": 3
+    },
+    {
+     "date": "2026-11-19",
+     "type": "fuerza",
+     "title": "Fuerza B",
+     "content": "Hip thrust 4×6 · puente lateral 3×30 s · abducción con goma 3×15 · step-down excéntrico 3×8 · core. Clave para la cintilla iliotibial.",
+     "targets": "—",
+     "km": 0,
+     "prefill": []
+    },
+    {
+     "date": "2026-11-20",
+     "type": "velocidad",
+     "title": "Velocidad + tolerancia",
+     "content": "1 km de calentamiento + técnica (skipping, A/B) + 8×30 m salida + 3×50 m al máximo + 2×300 m (rec. 4:00)",
+     "targets": "300 m en 0:58",
+     "km": 2.0,
+     "prefill": [
+      {
+       "kind": "calentamiento",
+       "dist": 1000
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 300,
+       "target": "0:58",
+       "rest": "4:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 300,
+       "target": "0:58",
+       "rest": "4:00"
+      }
+     ]
+    },
+    {
+     "date": "2026-11-22",
+     "type": "tempo",
+     "title": "Rodaje con tempo",
+     "content": "4,5 km: 3 km suaves + 1,5 km a ritmo umbral",
+     "targets": "6:00 → 4:50/km",
+     "km": 4.5,
+     "prefill": [
+      {
+       "kind": "rodaje",
+       "dist": 3000
+      },
+      {
+       "kind": "tempo",
+       "dist": 1500,
+       "target": "7:15"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "title": "Ritmo objetivo en 600 m",
+   "focus": "≈14,5 km · resistencia específica",
+   "sessions": [
+    {
+     "date": "2026-11-23",
+     "type": "rodaje",
+     "title": "Rodaje + rectas",
+     "content": "3,5 km + 4×80 m",
+     "targets": "5:45–6:10/km",
+     "km": 3.8,
+     "prefill": [
+      {
+       "kind": "rodaje",
+       "dist": 3500
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      }
+     ]
+    },
+    {
+     "date": "2026-11-24",
+     "type": "fuerza",
+     "title": "Fuerza A",
+     "content": "Sentadilla o búlgara 4×5 · peso muerto rumano 3×6 · 3×5 saltos con contramovimiento · gemelo 3×12. Puedes registrar aquí también salto a pies juntos y dominadas.",
+     "targets": "—",
+     "km": 0,
+     "prefill": []
+    },
+    {
+     "date": "2026-11-25",
+     "type": "series",
+     "title": "Específico 1000 · 3×600 + 400 m",
+     "content": "1,5 km + 3×600 m (rec. 3:00) + 1×400 m (rec. 3:00)",
+     "targets": "600 m en 2:03 · 400 m en 1:21",
+     "km": 3.7,
+     "prefill": [
+      {
+       "kind": "calentamiento",
+       "dist": 1500
+      },
+      {
+       "kind": "serie",
+       "dist": 600,
+       "target": "2:03",
+       "rest": "3:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 600,
+       "target": "2:03",
+       "rest": "3:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 600,
+       "target": "2:03",
+       "rest": "3:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:21",
+       "rest": "3:00"
+      }
+     ],
+     "evaluate": true,
+     "ladderLevel": 5
+    },
+    {
+     "date": "2026-11-26",
+     "type": "fuerza",
+     "title": "Fuerza B",
+     "content": "Hip thrust 4×6 · puente lateral 3×30 s · abducción con goma 3×15 · step-down excéntrico 3×8 · core. Clave para la cintilla iliotibial.",
+     "targets": "—",
+     "km": 0,
+     "prefill": []
+    },
+    {
+     "date": "2026-11-27",
+     "type": "velocidad",
+     "title": "Velocidad + tolerancia",
+     "content": "1 km de calentamiento + técnica (skipping, A/B) + 6×30 m salida + 4×50 m al máximo (2 desde la posición de examen) + 2×300 m (rec. 4:00)",
+     "targets": "300 m en 0:57",
+     "km": 2.0,
+     "prefill": [
+      {
+       "kind": "calentamiento",
+       "dist": 1000
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "salida",
+       "dist": 30,
+       "rest": "2:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "sprint",
+       "dist": 50,
+       "rest": "4:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 300,
+       "target": "0:57",
+       "rest": "4:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 300,
+       "target": "0:57",
+       "rest": "4:00"
+      }
+     ]
+    },
+    {
+     "date": "2026-11-29",
+     "type": "rodaje",
+     "title": "Rodaje progresivo",
+     "content": "5 km: 4 km suaves + 1 km vivo",
+     "targets": "6:00 → 5:10/km",
+     "km": 5.0,
+     "prefill": [
+      {
+       "kind": "rodaje",
+       "dist": 4000
+      },
+      {
+       "kind": "rodaje",
+       "dist": 1000,
+       "target": "5:10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "title": "Descarga y simulacro",
+   "focus": "≈12,5 km · llegar fresco al simulacro del sábado 5/12",
+   "sessions": [
+    {
+     "date": "2026-11-30",
+     "type": "rodaje",
+     "title": "Rodaje + rectas",
+     "content": "3 km + 4×80 m",
+     "targets": "5:45–6:10/km",
+     "km": 3.3,
+     "prefill": [
+      {
+       "kind": "rodaje",
+       "dist": 3000
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      },
+      {
+       "kind": "recta",
+       "dist": 80
+      }
+     ]
+    },
+    {
+     "date": "2026-12-01",
+     "type": "fuerza",
+     "title": "Fuerza A (−40 % de series)",
+     "content": "Misma sesión de Fuerza A con un 40 % menos de series.",
+     "targets": "—",
+     "km": 0,
+     "prefill": []
+    },
+    {
+     "date": "2026-12-02",
+     "type": "series",
+     "title": "Afinamiento",
+     "content": "1,5 km + 3×400 m (rec. 3:00) + 2×200 m (rec. 2:00)",
+     "targets": "400 m en 1:22 · 200 m en 0:40",
+     "km": 3.1,
+     "prefill": [
+      {
+       "kind": "calentamiento",
+       "dist": 1500
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:22",
+       "rest": "3:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:22",
+       "rest": "3:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 400,
+       "target": "1:22",
+       "rest": "3:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 200,
+       "target": "0:40",
+       "rest": "2:00"
+      },
+      {
+       "kind": "serie",
+       "dist": 200,
+       "target": "0:40",
+       "rest": "2:00"
+      }
+     ]
+    },
+    {
+     "date": "2026-12-05",
+     "type": "simulacro",
+     "title": "SIMULACRO 50 m + 1000 m",
+     "content": "2 km + técnica + 2 intentos de 50 m (rec. 5:00) + 1000 m tras 10–15 min",
+     "targets": "Parciales 1000: 1:22 / 1:23 / 0:40",
+     "km": 3.1,
+     "prefill": [
+      {
+       "kind": "calentamiento",
+       "dist": 2000
+      },
+      {
+       "kind": "test50",
+       "dist": 50,
+       "rest": "5:00"
+      },
+      {
+       "kind": "test50",
+       "dist": 50,
+       "rest": "5:00"
+      },
+      {
+       "kind": "test1000",
+       "dist": 1000,
+       "target": "3:25",
+       "rest": "12:00"
+      }
+     ]
+    },
+    {
+     "date": "2026-12-06",
+     "type": "rodaje",
+     "title": "Regenerativo",
+     "content": "3 km muy suaves",
+     "targets": "6:15–6:45/km",
+     "km": 3.0,
+     "prefill": [
+      {
+       "kind": "rodaje",
+       "dist": 3000
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

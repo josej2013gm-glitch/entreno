@@ -5,6 +5,7 @@ import { createStore } from './store.js';
 import { DEFAULT_GEMINI_MODEL } from './config.js';
 import * as A from './algorithm.js';
 import * as AI from './ai.js';
+import * as P from './pullups.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -50,7 +51,7 @@ async function loadAll() {
   S.settings = { objective1000: 205, objective50: 7.0, model: DEFAULT_GEMINI_MODEL, ...settings };
 }
 async function saveSettings(patch) { S.settings = { ...S.settings, ...patch }; await S.store.saveSettings(S.settings); }
-const activePlan = () => S.plans.find(p => p.id === S.settings.activePlanId) || S.plans[0] || null;
+const activePlan = () => { const rp = S.plans.filter(p => !P.isPullPlan(p)); return rp.find(p => p.id === S.settings.activePlanId) || rp[0] || null; };
 const doneMap = () => { const m = new Map(); for (const s of S.sessions) if (s.planRef?.sessionId) m.set(`${s.planRef.planId}|${s.planRef.sessionId}`, s); return m; };
 
 // ------------------------------------------------------------------ router
@@ -78,6 +79,8 @@ function renderPanel() {
   const thisWeek = weeks.find(w => w.week === A.weekKey(today()));
   const plan = activePlan(); const dm = doneMap();
   const upcoming = plan ? plan.weeks.flatMap(w => w.sessions).filter(s => s.date >= today() && !dm.has(`${plan.id}|${s.id}`)).slice(0, 3) : [];
+  const pplan = activePullPlan(); const pdm = pullDoneMap();
+  const pullUp = pplan ? pplan.weeks.flatMap(w => w.sessions).filter(s => s.date >= today() && !pdm.has(`${pplan.id}|${s.id}`)).slice(0, 2) : [];
   const lastJump = S.extras.filter(e => e.kind === 'salto'), lastPull = S.extras.filter(e => e.kind === 'dominadas');
   const bestJump = lastJump.length ? Math.max(...lastJump.map(e => e.best || 0)) : null;
   const bestPull = lastPull.length ? Math.max(...lastPull.map(e => e.best || 0)) : null;
@@ -101,7 +104,8 @@ function renderPanel() {
     ${bestPull != null ? `<div class="kpi"><div class="label">Mejor serie dominadas</div><div class="value">${bestPull} reps</div><div class="sub">${lastPull.length} sesiones</div></div>` : ''}
   </div>
   <div class="grid grid-2">
-    <div class="card"><h2>Próximos entrenamientos</h2>${upcoming.length ? upcoming.map(s => psCard(plan, s, null)).join('') : `<p class="muted">${plan ? 'No quedan sesiones pendientes en el plan activo.' : 'No hay plan cargado.'} <a href="#${plan ? 'ia' : 'plan'}">${plan ? 'Planifica el siguiente bloque' : 'Cargar plan'}</a></p>`}</div>
+    <div class="card"><h2>Próximos entrenamientos</h2>${upcoming.length ? upcoming.map(s => psCard(plan, s, null)).join('') : `<p class="muted">${plan ? 'No quedan sesiones pendientes en el plan activo.' : 'No hay plan cargado.'} <a href="#${plan ? 'ia' : 'plan'}">${plan ? 'Planifica el siguiente bloque' : 'Cargar plan'}</a></p>`}
+      ${pullUp.length ? `<h3 style="margin-top:12px">Dominadas</h3>${pullUp.map(s => pullCard(pplan, s, null)).join('')}` : ''}</div>
     <div class="card"><h2>Algoritmo · qué toca ahora</h2>
       <p><b>Escalera:</b> ${esc(ladder.reason)} Próxima sesión específica: <b>nivel ${ladder.next}</b> — ${esc(A.LADDER[ladder.next].desc)}.</p>
       <p><b>Volumen:</b> ${esc(vol.reason)}</p>
@@ -133,6 +137,11 @@ function renderPanel() {
 }
 
 // ================================================================== PLAN
+const runPlans = () => S.plans.filter(p => !P.isPullPlan(p));
+const pullPlans = () => S.plans.filter(P.isPullPlan);
+const activePullPlan = () => pullPlans().find(p => p.id === S.settings.activePullPlanId) || pullPlans()[0] || null;
+const pullDoneMap = () => { const m = new Map(); for (const e of S.extras) if (e.planRef?.sessionId) m.set(`${e.planRef.planId}|${e.planRef.sessionId}`, e); return m; };
+
 function psCard(plan, s, dm) {
   const done = dm ? dm.get(`${plan.id}|${s.id}`) : null;
   return `<div class="ps ${done ? 'done' : ''} ${s.date === today() ? 'today' : ''}">
@@ -144,47 +153,122 @@ function psCard(plan, s, dm) {
     <div class="actions">${done ? `<span class="badge green">✓ Hecho</span> ${semBadge(done)} <span class="small muted">${esc(A.summarize(done))}</span>` : `<button class="btn small primary" data-reg="${esc(plan.id)}|${esc(s.id)}">Registrar</button>`}</div>
   </div>`;
 }
+const evalBadge = e => (e?.evaluation ? `<span class="badge ${e.evaluation.ok ? 'green' : 'amber'}">${e.evaluation.ok ? 'CUMPLIDO' : 'INCOMPLETO'}</span>` : '');
+function pullCard(plan, s, dm) {
+  const done = dm ? dm.get(`${plan.id}|${s.id}`) : null;
+  return `<div class="ps ${done ? 'done' : ''} ${s.date === today() ? 'today' : ''}">
+    <div class="date">${esc(s.dow)} ${A.fmtDate(s.date)} · <span class="badge grey">Dominadas</span>${s.test ? ' <span class="badge">Test</span>' : ''}</div>
+    <div class="title">${esc(s.title)}</div>
+    <div class="targets">🎯 ${esc(P.setsText(s.sets))}</div>
+    ${s.content ? `<div class="content">${esc(s.content)}</div>` : ''}
+    ${s.sets.length > 1 ? `<div class="small muted">Descanso entre series: ${P.restText(s.rest)}</div>` : ''}
+    ${s.complementary.length ? `<div class="small">+ ${s.complementary.map(c => `<b>${esc(c.group ? c.group[0].toUpperCase() + c.group.slice(1) : '')}</b> ${esc(c.name)}`).join(' · ')}</div>` : ''}
+    ${s.after ? `<div class="small muted">${esc(s.after)}</div>` : ''}
+    <div class="actions">${done ? `<span class="badge green">✓ Hecho</span> ${evalBadge(done)} <span class="small muted">${done.sets.map(x => x.values.join('')).join(' · ')} reps</span>` : `<button class="btn small primary" data-pull="${esc(plan.id)}|${esc(s.id)}">Registrar</button>`}</div>
+  </div>`;
+}
 function bindPsButtons(root) {
   $$('[data-reg]', root).forEach(b => b.onclick = () => {
     const [pid, sid] = b.dataset.reg.split('|'); const plan = S.plans.find(p => p.id === pid);
     const ps = plan?.weeks.flatMap(w => w.sessions).find(x => x.id === sid); if (!ps) return;
     S.editing = null; S.draft = draftFromPlanned(plan, ps); go('registrar');
   });
+  $$('[data-pull]', root).forEach(b => b.onclick = () => {
+    const [pid, sid] = b.dataset.pull.split('|'); const plan = S.plans.find(p => p.id === pid);
+    const ps = plan?.weeks.flatMap(w => w.sessions).find(x => x.id === sid); if (!ps) return;
+    S.extraDraft = pullDraftFromPlanned(plan, ps); go('extras');
+  });
 }
 function renderPlan() {
-  const el = $('#view-plan'); const plan = activePlan(); const dm = doneMap();
+  const el = $('#view-plan'); const tab = S.planTab || 'carrera';
+  const tabs = `<div class="row" style="margin-bottom:12px"><button class="btn ${tab === 'carrera' ? 'primary' : ''}" data-tab="carrera">🏃 Carrera</button><button class="btn ${tab === 'dominadas' ? 'primary' : ''}" data-tab="dominadas">💪 Dominadas</button></div>`;
+  el.innerHTML = tabs + (tab === 'carrera' ? runPlanHTML() : pullPlanHTML());
+  $$('[data-tab]', el).forEach(b => b.onclick = () => { S.planTab = b.dataset.tab; renderPlan(); });
+  if (tab === 'carrera') bindRunPlan(); else bindPullPlan();
+  bindPsButtons(el);
+}
+function runPlanHTML() {
+  const plan = activePlan(); const dm = doneMap(); const plans = runPlans();
   const total = plan ? plan.weeks.flatMap(w => w.sessions) : []; const done = total.filter(s => dm.has(`${plan.id}|${s.id}`)).length;
-  el.innerHTML = `<div class="card"><div class="row between"><h1>Plan de entrenamiento</h1>
-    <div class="row">${S.plans.length ? `<select id="plan-sel" style="width:auto">${S.plans.map(p => `<option value="${esc(p.id)}" ${plan && p.id === plan.id ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select>` : ''}</div></div>
+  return `<div class="card"><div class="row between"><h1>Plan de carrera</h1>
+    <div class="row">${plans.length ? `<select id="plan-sel" style="width:auto">${plans.map(p => `<option value="${esc(p.id)}" ${plan && p.id === plan.id ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select>` : ''}</div></div>
     <div class="row"><button class="btn primary" id="pl-bundled">Cargar plan Bloque I (incluido)</button><button class="btn" id="pl-import">Importar plan (.json)</button>
     ${plan ? `<button class="btn" id="pl-export">Exportar plan</button><button class="btn danger" id="pl-del">Eliminar plan</button>` : ''}</div>
     ${plan ? `<p class="muted small">${esc(plan.notes || plan.summary || '')}</p><p><b>${done}/${total.length}</b> sesiones registradas · ${A.fmtDate(plan.start)} → ${A.fmtDate(plan.end)} · origen: ${plan.source === 'ia' ? 'IA (' + esc(plan.model || '') + ')' : 'informe'}</p>` : ''}
   </div>
   ${plan ? plan.weeks.map(w => `<div class="week"><div class="week-head"><h2>Semana ${w.n} · ${esc(w.title || '')}</h2><span class="muted small">${esc(w.focus || '')}</span></div>
-    <div class="sessions">${w.sessions.map(s => psCard(plan, s, dm)).join('')}</div></div>`).join('') : '<div class="empty">No hay ningún plan cargado todavía.</div>'}`;
+    <div class="sessions">${w.sessions.map(s => psCard(plan, s, dm)).join('')}</div></div>`).join('') : '<div class="empty">No hay ningún plan de carrera cargado todavía.</div>'}`;
+}
+function bindRunPlan() {
+  const plan = activePlan();
   $('#pl-bundled').onclick = loadBundledPlan;
   $('#pl-import').onclick = async () => { const j = await pickFile(); if (j) await savePlan(j, 'importado'); };
   if (plan) {
     $('#plan-sel').onchange = async e => { await saveSettings({ activePlanId: e.target.value }); renderPlan(); };
     $('#pl-export').onclick = () => download(`plan-${plan.start}.json`, plan);
-    $('#pl-del').onclick = async () => { if (!confirm(`¿Eliminar el plan "${plan.name}"? Las sesiones ya registradas se conservan.`)) return; await S.store.del('plans', plan.id); S.plans = S.plans.filter(p => p.id !== plan.id); await saveSettings({ activePlanId: S.plans[0]?.id || null }); renderPlan(); };
+    $('#pl-del').onclick = async () => { if (!confirm(`¿Eliminar el plan "${plan.name}"? Las sesiones ya registradas se conservan.`)) return; await S.store.del('plans', plan.id); S.plans = S.plans.filter(p => p.id !== plan.id); await saveSettings({ activePlanId: runPlans()[0]?.id || null }); renderPlan(); };
   }
-  bindPsButtons(el);
+}
+function pullPlanHTML() {
+  const plan = activePullPlan(); const dm = pullDoneMap(); const plans = pullPlans();
+  const total = plan ? plan.weeks.flatMap(w => w.sessions) : []; const done = total.filter(s => dm.has(`${plan.id}|${s.id}`)).length;
+  return `<div class="card"><div class="row between"><h1>Plan de dominadas</h1>
+    <div class="row">${plans.length ? `<select id="pull-sel" style="width:auto">${plans.map(p => `<option value="${esc(p.id)}" ${plan && p.id === plan.id ? 'selected' : ''}>${esc(p.name)} (${A.fmtDate(p.start)})</option>`).join('')}</select>` : ''}</div></div>
+    <p class="small muted">Lo planificas tú y lo añades con un archivo JSON. Añadir un plan nunca borra los que ya tienes ni el plan de carrera. La planificación con IA no lo modifica.</p>
+    <div class="row"><button class="btn primary" id="pu-import">Añadir plan de dominadas (.json)</button><button class="btn" id="pu-bundled">Añadir plan inicial (incluido)</button>
+    ${plan ? `<button class="btn" id="pu-export">Exportar plan</button><button class="btn danger" id="pu-del">Eliminar este plan</button>` : ''}</div>
+    ${plan ? `<p><b>${done}/${total.length}</b> sesiones registradas · ${A.fmtDate(plan.start)} → ${A.fmtDate(plan.end)}</p>
+      ${(plan.notes || []).length ? `<details open><summary>Descansos y normas</summary><ul class="small">${[].concat(plan.notes).map(n => `<li>${esc(n)}</li>`).join('')}</ul></details>` : ''}
+      ${(plan.complementary || []).length ? `<details><summary>Trabajo complementario (agarre y core)</summary><ul class="small">${plan.complementary.map(c => `<li><b>${esc(c.name)}</b>: ${esc(P.compText(c))}${(c.cues || []).length ? ` — ${esc(c.cues.join('; '))}` : ''}</li>`).join('')}</ul></details>` : ''}` : ''}
+  </div>
+  ${plan ? plan.weeks.map(w => `<div class="week"><div class="week-head"><h2>${esc(w.title || `Semana ${w.n}`)}</h2><span class="muted small">${esc(w.focus || '')}</span></div>
+    <div class="sessions">${w.sessions.map(s => pullCard(plan, s, dm)).join('')}</div></div>`).join('') : '<div class="empty">No hay ningún plan de dominadas. Pulsa «Añadir plan de dominadas (.json)».</div>'}`;
+}
+function bindPullPlan() {
+  const plan = activePullPlan();
+  $('#pu-import').onclick = async () => { const j = await pickFile(); if (j) await addPullPlan(j); };
+  $('#pu-bundled').onclick = async () => {
+    let j = null;
+    try { const r = await fetch('data/plan-dominadas-1.json', { cache: 'no-store' }); if (!r.ok) throw new Error(); j = await r.json(); }
+    catch { if (!confirm('No se encuentra data/plan-dominadas-1.json en la web.\n\n¿Quieres elegir el archivo desde tu dispositivo?')) return; j = await pickFile(); }
+    if (j) await addPullPlan(j);
+  };
+  if (plan) {
+    $('#pull-sel').onchange = async e => { await saveSettings({ activePullPlanId: e.target.value }); renderPlan(); };
+    $('#pu-export').onclick = () => download(`plan-dominadas-${plan.start}.json`, plan);
+    $('#pu-del').onclick = async () => { if (!confirm(`¿Eliminar el plan "${plan.name}"? Los registros de dominadas ya guardados se conservan.`)) return; await S.store.del('plans', plan.id); S.plans = S.plans.filter(p => p.id !== plan.id); await saveSettings({ activePullPlanId: pullPlans()[0]?.id || null }); renderPlan(); };
+  }
+}
+async function addPullPlan(raw) {
+  let plan;
+  try { plan = P.normalizePullPlan(raw); } catch (e) { toast(e.message, 5000); return null; }
+  const dup = pullPlans().find(p => p.name === plan.name && p.start === plan.start);
+  if (dup && !confirm(`Ya tienes un plan de dominadas "${plan.name}" con la misma fecha de inicio.\n\n¿Añadirlo igualmente como otro plan? (no se borra ni sustituye nada)`)) return null;
+  const saved = await S.store.put('plans', plan); // id nuevo: siempre se AÑADE
+  S.plans = [saved, ...S.plans].sort((a, b) => (b.start || '').localeCompare(a.start || ''));
+  await saveSettings({ activePullPlanId: saved.id });
+  S.planTab = 'dominadas'; toast(`Plan de dominadas añadido: ${saved.name}`);
+  if (S.view === 'plan') renderPlan(); else go('plan');
+  return saved;
 }
 async function savePlan(raw, label) {
+  if (raw && raw.discipline === 'dominadas') return addPullPlan(raw);
   if (!raw || !Array.isArray(raw.weeks)) { toast('El JSON no tiene el formato de plan (falta "weeks")'); return null; }
   const plan = A.normalizePlan(raw);
-  const existing = S.plans.find(p => p.name === plan.name && p.start === plan.start);
+  const existing = runPlans().find(p => p.name === plan.name && p.start === plan.start);
   if (existing && !confirm(`Ya existe "${plan.name}". ¿Sustituirlo?`)) return null;
-  const saved = await S.store.put('plans', { ...plan, id: existing?.id || plan.id });
+  const saved = await S.store.put('plans', { ...plan, discipline: 'carrera', id: existing?.id || plan.id });
   S.plans = [saved, ...S.plans.filter(p => p.id !== saved.id)].sort((a, b) => (b.start || '').localeCompare(a.start || ''));
   await saveSettings({ activePlanId: saved.id });
-  toast(`Plan ${label}: ${saved.name}`); if (S.view === 'plan') renderPlan(); else go('plan');
+  S.planTab = 'carrera'; toast(`Plan ${label}: ${saved.name}`); if (S.view === 'plan') renderPlan(); else go('plan');
   return saved;
 }
 async function loadBundledPlan() {
-  try { const r = await fetch('data/plan-bloque1.json', { cache: 'no-store' }); await savePlan({ ...(await r.json()), id: 'bloque-1-2026' }, 'cargado'); }
-  catch (e) { toast('No se pudo leer data/plan-bloque1.json: ' + e.message); }
+  try { const r = await fetch('data/plan-bloque1.json', { cache: 'no-store' }); if (!r.ok) throw new Error(`HTTP ${r.status}`); await savePlan({ ...(await r.json()), id: 'bloque-1-2026' }, 'cargado'); }
+  catch (e) {
+    if (!confirm('No se encuentra data/plan-bloque1.json en la web (¿no subiste la carpeta data?).\n\n¿Quieres elegir el archivo plan-bloque1.json desde tu dispositivo?')) return;
+    const j = await pickFile(); if (j) await savePlan({ ...j, id: 'bloque-1-2026' }, 'cargado');
+  }
 }
 
 // ================================================================== REGISTRAR
@@ -306,7 +390,7 @@ function showSavedResult(s, ev) {
   modal(`<h2>Sesión guardada ✓</h2><p>${A.fmtDate(s.date)} · ${esc(A.summarize(s))} · ${km(A.sessionKm(s))} km</p>
     ${sem ? `<div class="semaforo ${sem.css}"><div class="big">Semáforo: ${sem.label}</div><div class="small">${esc(ev.detail)}</div><p>${esc(sem.rec)}</p></div>` : '<p class="muted small">Sin series con objetivo: no se evalúa con semáforo.</p>'}
     ${s.ladderLevel ? `<p><b>Escalera:</b> ${esc(ladder.reason)} Próxima sesión específica: nivel ${ladder.next} (${esc(A.LADDER[ladder.next].desc)}).</p>` : ''}
-    ${isSim ? `<p><b>Simulacro registrado.</b> Nuevo ritmo de trabajo: ${A.fmtTime(Math.round(A.workPace(S.settings, S.sessions).rp))}/km. ${A.aiAvailability(S.sessions, S.plans).ok ? 'Ya puedes <a href="#ia">planificar el siguiente bloque con IA</a>.' : ''}</p>` : ''}
+    ${isSim ? `<p><b>Simulacro registrado.</b> Nuevo ritmo de trabajo: ${A.fmtTime(Math.round(A.workPace(S.settings, S.sessions).rp))}/km. ${A.aiAvailability(S.sessions, runPlans()).ok ? 'Ya puedes <a href="#ia">planificar el siguiente bloque con IA</a>.' : ''}</p>` : ''}
     <p class="small muted">Volumen: ${esc(vol.reason)} Máximo próxima semana: ${vol.maxNext != null ? km(vol.maxNext) + ' km' : '—'}.</p>`);
   go(s.planRef ? 'plan' : 'historial');
 }
@@ -318,7 +402,8 @@ function renderHistorial() {
   const list = [...S.sessions].reverse().filter(s => (!f.type || s.type === f.type) && (!f.q || (A.summarize(s) + ' ' + (s.notes || '') + ' ' + s.date).toLowerCase().includes(f.q.toLowerCase())));
   const totalKm = S.sessions.reduce((a, s) => a + A.sessionKm(s), 0);
   el.innerHTML = `<div class="card"><div class="row between"><h1>Historial</h1><span class="muted">${S.sessions.length} sesiones · ${km(totalKm)} km</span></div>
-    <div class="row"><button class="btn" id="h-import">Importar historial incluido (2026)</button><button class="btn" id="h-backup">Copia de seguridad (.json)</button><button class="btn" id="h-restore">Restaurar copia</button></div>
+    <div class="row"><button class="btn" id="h-import">Importar historial incluido (2026)</button><button class="btn" id="h-backup">Copia de seguridad (.json)</button><button class="btn" id="h-restore">Importar archivo (.json)</button></div>
+    <p class="small muted">«Importar archivo» acepta una copia de seguridad, el historial.json o un plan.</p>
     <div class="form-grid" style="margin-top:10px"><div><label>Tipo</label><select id="h-type"><option value="">Todos</option>${Object.entries(A.SESSION_TYPES).map(([k, v]) => `<option value="${k}" ${f.type === k ? 'selected' : ''}>${v}</option>`).join('')}</select></div>
     <div><label>Buscar</label><input id="h-q" value="${esc(f.q)}" placeholder="400, molestias, 2026-10…"></div></div></div>
   <div class="card table-wrap">${list.length ? `<table class="table"><thead><tr><th>Fecha</th><th>Tipo</th><th>Contenido</th><th class="right">Km</th><th>RPE</th><th>Rodilla</th><th></th></tr></thead><tbody>
@@ -334,12 +419,24 @@ function renderHistorial() {
   $$('[data-del]', el).forEach(b => b.onclick = async () => { if (!confirm('¿Eliminar esta sesión?')) return; await S.store.del('sessions', b.dataset.del); S.sessions = S.sessions.filter(s => s.id !== b.dataset.del); renderHistorial(); });
 }
 async function importHistorial() {
+  let j = null;
   try {
-    const j = await (await fetch('data/historial.json', { cache: 'no-store' })).json();
+    const r = await fetch('data/historial.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    j = await r.json();
+  } catch (e) {
+    if (!confirm('No se encuentra data/historial.json en la web (¿no subiste la carpeta data?).\n\n¿Quieres elegir el archivo historial.json desde tu dispositivo?')) return;
+    j = await pickFile(); if (!j) return;
+  }
+  await importHistorialData(j);
+}
+async function importHistorialData(j) {
+  if (!j || !Array.isArray(j.sessions)) return toast('El archivo no tiene el formato del historial (falta "sessions")', 4000);
+  try {
     const already = S.sessions.filter(s => s.source === 'historial').length;
     if (already && !confirm(`Ya hay ${already} sesiones importadas del historial. ¿Volver a importarlas? (se sobrescriben, no se duplican)`)) return;
     toast('Importando…');
-    const items = j.sessions.map(s => { const o = { ...s, id: `hist-${s.date}` }; const ev = A.evaluateSession(o); o.semaforo = ev && ev.color === 'parar' ? { color: ev.color, detail: ev.detail } : null; return o; });
+    const items = j.sessions.filter(s => s && s.date).map(s => { const o = { source: 'historial', ...s, id: s.id || `hist-${s.date}` }; const ev = A.evaluateSession(o); o.semaforo = o.semaforo || (ev && ev.color === 'parar' ? { color: ev.color, detail: ev.detail } : null); return o; });
     const saved = await S.store.putMany('sessions', items);
     const ids = new Set(saved.map(s => s.id));
     S.sessions = [...S.sessions.filter(s => !ids.has(s.id)), ...saved].sort((a, b) => a.date.localeCompare(b.date));
@@ -351,7 +448,12 @@ async function backup() {
   download(`entrenos-backup-${today()}.json`, { app: 'entrenos-policia-local', version: 1, exportedAt: new Date().toISOString(), settings, sessions: S.sessions, plans: S.plans, extras: S.extras });
 }
 async function restore() {
-  const j = await pickFile(); if (!j || j.app !== 'entrenos-policia-local') return toast('No es una copia de seguridad de esta app');
+  const j = await pickFile(); if (!j) return;
+  if (j.app !== 'entrenos-policia-local') {
+    if (Array.isArray(j.sessions)) return importHistorialData(j);            // historial.json
+    if (Array.isArray(j.weeks)) return savePlan(j, 'importado');              // un plan
+    return toast('No es una copia de seguridad, un historial ni un plan de esta app', 4000);
+  }
   if (!confirm(`Restaurar ${j.sessions?.length || 0} sesiones, ${j.plans?.length || 0} planes y ${j.extras?.length || 0} extras? Los registros con el mismo id se sobrescriben.`)) return;
   for (const c of ['sessions', 'plans', 'extras']) if (j[c]?.length) await S.store.putMany(c, j[c]);
   if (j.settings) await saveSettings({ ...j.settings, geminiKey: S.settings.geminiKey });
@@ -360,53 +462,93 @@ async function restore() {
 
 // ================================================================== EXTRAS
 const EXTRA_KINDS = { salto: { label: 'Salto de longitud a pies juntos', unit: 'cm' }, dominadas: { label: 'Dominadas', unit: 'reps' } };
+const blankExtra = (kind = 'salto') => ({ date: today(), kind, weight: '', notes: '', sets: [{ values: '', rest: '' }] });
+function pullDraftFromPlanned(plan, ps) {
+  return { date: ps.date <= today() ? ps.date : today(), kind: 'dominadas', weight: '', notes: '',
+    planRef: { planId: plan.id, sessionId: ps.id }, planned: { title: ps.title, date: ps.date, content: ps.content, sets: ps.sets, rest: ps.rest, test: ps.test, planName: plan.name },
+    sets: ps.sets.map((x, i) => ({ values: '', rest: i ? A.fmtTime(ps.rest.min) : '', planned: x })),
+    comp: ps.complementary.map(c => ({ ...c, values: Array.from({ length: c.sets }, () => ''), kg: '' })) };
+}
+function extraDraftFromRecord(e) {
+  const d = { id: e.id, date: e.date, kind: e.kind, weight: e.weight ?? '', notes: e.notes || '', planRef: e.planRef || null, planned: e.planned || null,
+    sets: e.sets.map((s, i) => ({ values: s.values.join(' '), rest: s.rest != null ? A.fmtTime(s.rest) : '', planned: e.planned?.sets?.[i] })),
+    comp: (e.complementary || []).map(c => ({ ...c, values: Array.from({ length: Math.max(c.sets || 0, c.values.length) }, (_, i) => c.values[i] ?? ''), kg: c.kg ?? '' })) };
+  // series planificadas que no se llegaron a registrar
+  if (d.planned) for (let i = d.sets.length; i < d.planned.sets.length; i++) d.sets.push({ values: '', rest: '', planned: d.planned.sets[i] });
+  return d;
+}
 function renderExtras() {
   const el = $('#view-extras');
-  if (!S.extraDraft) S.extraDraft = { date: today(), kind: 'salto', weight: '', notes: '', sets: [{ values: '', rest: '' }] };
-  const d = S.extraDraft; const unit = EXTRA_KINDS[d.kind].unit;
+  if (!S.extraDraft) S.extraDraft = blankExtra();
+  const d = S.extraDraft; const unit = EXTRA_KINDS[d.kind].unit; const pl = d.planned;
   const hist = [...S.extras].reverse();
-  el.innerHTML = `<div class="card"><h1>Pruebas adicionales</h1><p class="muted small">Fuera de la programación de carrera. En salto anota la marca de cada intento (cm); en dominadas, las repeticiones de cada serie (pueden ser distintas).</p>
-    <div class="form-grid"><div><label>Fecha</label><input type="date" id="x-date" value="${esc(d.date)}"></div>
-      <div><label>Prueba</label><select id="x-kind">${Object.entries(EXTRA_KINDS).map(([k, v]) => `<option value="${k}" ${d.kind === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select></div>
+  el.innerHTML = `<div class="card"><div class="row between"><h1>Pruebas adicionales</h1>${pl ? '<button class="btn small" id="x-free">Registro libre</button>' : ''}</div>
+    ${pl ? `<div class="semaforo" style="background:var(--accent-soft);border:1px solid var(--accent)"><b>💪 ${esc(pl.planName || 'Plan de dominadas')} · ${esc(pl.title)}</b> (${A.fmtDate(pl.date)})<br>
+      🎯 ${esc(P.setsText(pl.sets))}${pl.sets.length > 1 ? ` · descanso ${P.restText(pl.rest)}` : ''}${pl.content ? `<div class="small">${esc(pl.content)}</div>` : ''}</div>`
+      : '<p class="muted small">En salto anota la marca de cada intento (cm); en dominadas, las repeticiones de cada serie (pueden ser distintas). Para registrar una sesión del plan de dominadas, usa su botón «Registrar» en Plan → Dominadas.</p>'}
+    <div class="form-grid" style="margin-top:10px"><div><label>Fecha</label><input type="date" id="x-date" value="${esc(d.date)}"></div>
+      <div><label>Prueba</label><select id="x-kind" ${pl ? 'disabled' : ''}>${Object.entries(EXTRA_KINDS).map(([k, v]) => `<option value="${k}" ${d.kind === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select></div>
       ${d.kind === 'dominadas' ? `<div><label>Lastre (kg, opcional)</label><input id="x-weight" type="number" step="0.5" value="${esc(d.weight)}"></div>` : ''}</div>
     <h3 style="margin-top:12px">Series</h3>
     <div id="x-sets">${d.sets.map((s, i) => `<div class="seg" style="grid-template-columns:auto 2fr 1fr auto" data-i="${i}"><div><label>Serie</label><b>${i + 1}</b></div>
-      <div><label>${d.kind === 'salto' ? 'Marcas de cada salto (cm, separadas por espacios)' : 'Repeticiones'}</label><input data-f="values" inputmode="decimal" value="${esc(s.values)}" placeholder="${d.kind === 'salto' ? '245 251 248' : '8'}"></div>
+      <div><label>${d.kind === 'salto' ? 'Marcas de cada salto (cm, separadas por espacios)' : `Repeticiones${s.planned ? ` · objetivo <b>${esc(P.setLabel(s.planned))}</b>` : ''}`}</label><input data-f="values" inputmode="decimal" value="${esc(s.values)}" placeholder="${d.kind === 'salto' ? '245 251 248' : s.planned ? (s.planned.max ? (s.planned.min ? `mín. ${s.planned.min}` : 'máx.') : String(s.planned.target)) : '8'}"></div>
       <div><label>Descanso previo</label><input data-f="rest" value="${esc(s.rest)}" placeholder="${i === 0 ? '—' : '2:00'}"></div>
       <div><button class="btn small danger" data-del="${i}">✕</button></div></div>`).join('')}</div>
     <div class="row"><button class="btn small" id="x-add">+ Añadir serie</button><span id="x-sum" class="muted small"></span></div>
+    ${d.kind === 'dominadas' && (d.comp || []).length ? `<h3 style="margin-top:14px">Trabajo complementario</h3><div id="x-comp">${d.comp.map((c, ci) => `<div class="seg" style="grid-template-columns:1fr" data-ci="${ci}">
+      <div><b>${esc(c.name)}</b> <span class="badge grey">${esc(c.group || '')}</span> <span class="small muted">${esc(P.compText(c))}${(c.cues || []).length ? ' · ' + esc(c.cues.join('; ')) : ''}</span></div>
+      <div class="row">${c.values.map((v, vi) => `<div style="width:120px"><label>Serie ${vi + 1} (${c.unit === 's' ? 's' : esc(c.unit)})</label><input data-cv="${vi}" inputmode="decimal" value="${esc(v)}" placeholder="${esc(c.target)}"></div>`).join('')}
+        ${c.hasLoad ? `<div style="width:120px"><label>Peso (kg/mano)</label><input data-ck="1" inputmode="decimal" value="${esc(c.kg)}" placeholder="10"></div>` : ''}</div></div>`).join('')}</div>` : ''}
     <div class="field" style="margin-top:10px"><label>Notas</label><textarea id="x-notes">${esc(d.notes)}</textarea></div>
     <button class="btn primary big" id="x-save">${d.id ? 'Guardar cambios' : 'Guardar'}</button> ${d.id ? '<button class="btn" id="x-cancel">Cancelar edición</button>' : ''}
   </div>
   <div class="grid grid-2"><div class="card"><h2>Salto a pies juntos (mejor por sesión)</h2><div class="chart-box"><canvas id="ch-salto"></canvas></div></div>
     <div class="card"><h2>Dominadas (total y mejor serie)</h2><div class="chart-box"><canvas id="ch-dom"></canvas></div></div></div>
   <div class="card table-wrap"><h2>Historial de extras</h2>${hist.length ? `<table class="table"><thead><tr><th>Fecha</th><th>Prueba</th><th>Series</th><th>Mejor</th><th>Total</th><th></th></tr></thead><tbody>
-    ${hist.map(e => `<tr><td class="nowrap">${A.fmtDate(e.date)}</td><td>${esc(EXTRA_KINDS[e.kind]?.label || e.kind)}${e.weight ? ` (+${e.weight} kg)` : ''}</td>
-      <td class="small">${e.sets.map((s, i) => `S${i + 1}: ${s.values.join(' · ')}${s.rest ? ` <span class="muted">(rec. ${A.fmtTime(s.rest)})</span>` : ''}`).join('<br>')}${e.notes ? `<div class="muted">${esc(e.notes)}</div>` : ''}</td>
+    ${hist.map(e => `<tr><td class="nowrap">${A.fmtDate(e.date)}</td><td>${esc(EXTRA_KINDS[e.kind]?.label || e.kind)}${e.weight ? ` (+${e.weight} kg)` : ''}${e.planned ? `<div class="small muted">${esc(e.planned.title)}</div>${evalBadge(e)}` : ''}</td>
+      <td class="small">${e.sets.map((s, i) => `S${i + 1}: ${s.values.join(' · ')}${e.planned?.sets?.[i] ? ` <span class="muted">/ ${esc(P.setLabel(e.planned.sets[i]))}</span>` : ''}${s.rest ? ` <span class="muted">(rec. ${A.fmtTime(s.rest)})</span>` : ''}`).join('<br>')}
+        ${(e.complementary || []).map(c => `<div>+ ${esc(c.name)}: ${c.values.join(' · ')}${c.unit === 's' ? ' s' : ' ' + esc(c.unit)}${c.kg ? ` · ${String(c.kg).replace('.', ',')} kg` : ''}</div>`).join('')}
+        ${e.evaluation && !e.evaluation.ok ? `<div class="muted">${esc(e.evaluation.detail)}</div>` : ''}${e.notes ? `<div class="muted">${esc(e.notes)}</div>` : ''}</td>
       <td><b>${e.best} ${EXTRA_KINDS[e.kind]?.unit}</b></td><td>${e.kind === 'dominadas' ? e.total + ' reps' : e.count + ' saltos'}</td>
       <td class="nowrap"><button class="btn small" data-xedit="${esc(e.id)}">Editar</button> <button class="btn small danger" data-xdel="${esc(e.id)}">✕</button></td></tr>`).join('')}</tbody></table>` : '<div class="empty">Sin registros todavía.</div>'}</div>`;
   const sync = () => { d.date = $('#x-date').value; d.notes = $('#x-notes').value; if ($('#x-weight')) d.weight = $('#x-weight').value;
     $$('#x-sets .seg').forEach(r => { const i = Number(r.dataset.i); $$('[data-f]', r).forEach(inp => d.sets[i][inp.dataset.f] = inp.value); });
+    $$('#x-comp .seg').forEach(r => { const c = d.comp[Number(r.dataset.ci)]; $$('[data-cv]', r).forEach(inp => c.values[Number(inp.dataset.cv)] = inp.value); const k = $('[data-ck]', r); if (k) c.kg = k.value; });
     const vals = d.sets.flatMap(s => parseVals(s.values)); $('#x-sum').textContent = vals.length ? `Mejor ${Math.max(...vals)} ${unit}${d.kind === 'dominadas' ? ` · total ${vals.reduce((a, b) => a + b, 0)} reps` : ''}` : ''; };
   $$('#view-extras input, #view-extras textarea').forEach(i => i.addEventListener('input', sync)); sync();
   $('#x-kind').onchange = e => { sync(); d.kind = e.target.value; renderExtras(); };
-  $('#x-add').onclick = () => { sync(); d.sets.push({ values: '', rest: d.sets.at(-1)?.rest || '' }); renderExtras(); };
+  $('#x-add').onclick = () => { sync(); d.sets.push({ values: '', rest: d.sets.at(-1)?.rest || (d.planned ? A.fmtTime(d.planned.rest.min) : '') }); renderExtras(); };
   $$('[data-del]', $('#x-sets')).forEach(b => b.onclick = () => { sync(); d.sets.splice(Number(b.dataset.del), 1); renderExtras(); });
   if ($('#x-cancel')) $('#x-cancel').onclick = () => { S.extraDraft = null; renderExtras(); };
+  if ($('#x-free')) $('#x-free').onclick = () => { S.extraDraft = blankExtra('dominadas'); renderExtras(); };
   $('#x-save').onclick = async () => {
     sync();
     const sets = d.sets.map(s => ({ values: parseVals(s.values), rest: A.parseTime(s.rest) })).filter(s => s.values.length);
     if (!sets.length) return toast('Añade al menos una serie con marcas');
     if (d.kind === 'dominadas' && sets.some(s => s.values.length > 1)) return toast('En dominadas pon un único número de repeticiones por serie');
     const vals = sets.flatMap(s => s.values);
-    const rec = { id: d.id, date: d.date, kind: d.kind, sets, weight: num(d.weight), notes: d.notes, best: Math.max(...vals), total: vals.reduce((a, b) => a + b, 0), count: vals.length };
+    const rec = { id: d.id, date: d.date, kind: d.kind, sets, weight: num(d.weight), notes: d.notes, best: Math.max(...vals), total: vals.reduce((a, b) => a + b, 0), count: vals.length,
+      planRef: d.planRef || null, planned: d.planned || null, evaluation: null, complementary: [] };
+    if (d.kind === 'dominadas' && d.planned) {
+      // las series se comparan en orden con las planificadas (las vacías cuentan como no hechas)
+      const reps = d.sets.map(s => parseVals(s.values)[0] ?? null);
+      while (reps.length && reps.at(-1) == null && reps.length > d.planned.sets.length) reps.pop();
+      rec.evaluation = P.evaluatePull(d.planned.sets, reps, d.sets.map(s => A.parseTime(s.rest)));
+    }
+    if (d.kind === 'dominadas') rec.complementary = (d.comp || []).map(c => ({ id: c.id, name: c.name, group: c.group, unit: c.unit, sets: c.sets, target: c.target, rest: c.rest, load: c.load, hasLoad: c.hasLoad, cues: c.cues,
+      values: c.values.map(v => parseVals(v)[0]).filter(v => v != null), kg: num(String(c.kg).replace(',', '.')) })).filter(c => c.values.length || c.kg != null);
     const saved = await S.store.put('extras', rec);
     S.extras = [...S.extras.filter(e => e.id !== saved.id), saved].sort((a, b) => a.date.localeCompare(b.date));
-    S.extraDraft = { date: today(), kind: d.kind, weight: '', notes: '', sets: [{ values: '', rest: '' }] };
-    toast(`Guardado · mejor ${saved.best} ${EXTRA_KINDS[saved.kind].unit}`); renderExtras();
+    S.extraDraft = blankExtra(d.kind);
+    if (saved.planned) {
+      const ev = saved.evaluation;
+      modal(`<h2>Dominadas guardadas ✓</h2><p>${A.fmtDate(saved.date)} · ${esc(saved.planned.title)} · ${saved.sets.map(s => s.values[0]).join(' · ')} reps (total ${saved.total})</p>
+        ${ev ? `<div class="semaforo ${ev.ok ? 'green' : 'amber'}"><div class="big">${ev.ok ? 'CUMPLIDO' : 'INCOMPLETO'}</div><p>${esc(ev.detail)}</p></div>` : ''}
+        ${saved.complementary.length ? `<p class="small">Complementario: ${saved.complementary.map(c => `${esc(c.name)} ${c.values.join('/')}${c.unit === 's' ? ' s' : ' ' + esc(c.unit)}${c.kg ? ` (${String(c.kg).replace('.', ',')} kg)` : ''}`).join(' · ')}</p>` : ''}`);
+      S.planTab = 'dominadas'; go('plan');
+    } else { toast(`Guardado · mejor ${saved.best} ${EXTRA_KINDS[saved.kind].unit}`); renderExtras(); }
   };
-  $$('[data-xedit]').forEach(b => b.onclick = () => { const e = S.extras.find(x => x.id === b.dataset.xedit);
-    S.extraDraft = { id: e.id, date: e.date, kind: e.kind, weight: e.weight ?? '', notes: e.notes || '', sets: e.sets.map(s => ({ values: s.values.join(' '), rest: s.rest != null ? A.fmtTime(s.rest) : '' })) }; renderExtras(); });
+  $$('[data-xedit]').forEach(b => b.onclick = () => { S.extraDraft = extraDraftFromRecord(S.extras.find(x => x.id === b.dataset.xedit)); renderExtras(); window.scrollTo(0, 0); });
   $$('[data-xdel]').forEach(b => b.onclick = async () => { if (!confirm('¿Eliminar este registro?')) return; await S.store.del('extras', b.dataset.xdel); S.extras = S.extras.filter(e => e.id !== b.dataset.xdel); renderExtras(); });
   const sj = S.extras.filter(e => e.kind === 'salto'), dm = S.extras.filter(e => e.kind === 'dominadas'); const accent = cssVar('--accent');
   chart('ch-salto', { type: 'line', data: { labels: sj.map(e => A.fmtDate(e.date).slice(0, 5)), datasets: [{ label: 'Mejor salto (cm)', data: sj.map(e => e.best), borderColor: accent, backgroundColor: accent }] }, options: { maintainAspectRatio: false } });
@@ -418,10 +560,10 @@ const parseVals = str => String(str || '').replace(/,/g, '.').split(/[\s;]+/).ma
 function nextMonday(fromIso) { const d = A.parseISO(fromIso); const add = ((8 - d.getDay()) % 7) || 7; d.setDate(d.getDate() + add); return A.isoDate(d); }
 function renderIA() {
   const el = $('#view-ia');
-  const av = A.aiAvailability(S.sessions, S.plans);
-  const lastEnd = S.plans.map(p => p.end).filter(Boolean).sort().at(-1);
+  const av = A.aiAvailability(S.sessions, runPlans());
+  const lastEnd = runPlans().map(p => p.end).filter(Boolean).sort().at(-1);
   const defStart = nextMonday(lastEnd && lastEnd >= today() ? lastEnd : today());
-  const ctx = AI.buildContext({ sessions: S.sessions, extras: S.extras, plans: S.plans, settings: S.settings });
+  const ctx = AI.buildContext({ sessions: S.sessions, extras: S.extras, plans: runPlans(), settings: S.settings });
   const r = S.aiResult;
   el.innerHTML = `<div class="card"><h1>Planificación con IA</h1>
     <p>Gemini diseña el siguiente bloque aplicando el algoritmo (ritmos, semáforo, escalera y reglas de volumen) sobre tu historial.</p>
@@ -438,7 +580,7 @@ function renderIA() {
   $('#ia-go').onclick = async () => {
     const btn = $('#ia-go'); btn.disabled = true; btn.textContent = 'Generando… (puede tardar 20–60 s)';
     try {
-      const out = await AI.generatePlan({ apiKey: S.settings.geminiKey, model: $('#ia-model').value.trim() || DEFAULT_GEMINI_MODEL, sessions: S.sessions, extras: S.extras, plans: S.plans,
+      const out = await AI.generatePlan({ apiKey: S.settings.geminiKey, model: $('#ia-model').value.trim() || DEFAULT_GEMINI_MODEL, sessions: S.sessions, extras: S.extras, plans: runPlans(),
         settings: S.settings, weeks: Number($('#ia-weeks').value), startDate: $('#ia-start').value, extraInstructions: $('#ia-extra').value.trim() });
       S.aiResult = out.plan; renderIA(); $('#ia-result').scrollIntoView({ behavior: 'smooth' });
     } catch (e) { modal(`<h2>No se pudo generar</h2><p>${esc(e.message)}</p>`); btn.disabled = false; btn.textContent = 'Generar siguiente bloque'; }

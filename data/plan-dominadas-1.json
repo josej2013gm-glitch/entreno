@@ -1,0 +1,223 @@
+{
+ "discipline": "dominadas",
+ "name": "Plan de dominadas inicial (2 semanas)",
+ "source": "manual",
+ "rest": {
+  "min": "2:00",
+  "max": "3:00"
+ },
+ "notes": [
+  "Mínimo 120 segundos entre series. Puedes ampliar a 150-180 segundos si necesitas recuperar para mantener la técnica.",
+  "Un día completo de descanso entre las sesiones 1, 2 y 3.",
+  "Dos días completos de descanso entre las sesiones 3 y 4.",
+  "Dos días completos de descanso después de la sesión 6 antes de volver a probar tu máximo."
+ ],
+ "complementary": [
+  {
+   "id": "colgado",
+   "name": "Colgado activo en barra",
+   "group": "agarre",
+   "sets": 2,
+   "unit": "s",
+   "target": "15-25",
+   "rest": "90",
+   "cues": [
+    "Agarre prono",
+    "Mantener los hombros estables y evitar balancearse"
+   ]
+  },
+  {
+   "id": "farmer",
+   "name": "Farmer hold (sujeción de mancuernas)",
+   "group": "agarre",
+   "sets": 2,
+   "unit": "s",
+   "target": "30-40",
+   "rest": "90",
+   "load": "10-12,5 kg por mano",
+   "hasLoad": true,
+   "cues": [
+    "Brazos extendidos",
+    "Espalda neutra y sin inclinarte"
+   ]
+  },
+  {
+   "id": "hollow",
+   "name": "Hollow body hold",
+   "group": "core",
+   "sets": 3,
+   "unit": "s",
+   "target": "20",
+   "rest": "45-60",
+   "cues": [
+    "Espalda lumbar pegada al suelo",
+    "Abdomen contraído"
+   ]
+  },
+  {
+   "id": "deadbug",
+   "name": "Dead bug",
+   "group": "core",
+   "sets": 2,
+   "unit": "reps/lado",
+   "target": "8",
+   "cues": [
+    "Movimiento lento y controlado",
+    "Evitar que la zona lumbar se arquee"
+   ]
+  }
+ ],
+ "weeks": [
+  {
+   "n": 1,
+   "title": "Primera semana",
+   "focus": "Sesiones 1–3 · un día completo de descanso entre sesiones",
+   "sessions": [
+    {
+     "n": 1,
+     "date": "2026-11-10",
+     "title": "Sesión 1",
+     "sets": [
+      2,
+      3,
+      2,
+      2,
+      {
+       "max": true,
+       "min": 3
+      }
+     ],
+     "complementary": [
+      "hollow",
+      "deadbug"
+     ],
+     "content": "5 series con un mínimo de 2:00 de descanso entre series + core (hollow body hold y dead bug).",
+     "after": "Después: un día completo de descanso."
+    },
+    {
+     "n": 2,
+     "date": "2026-11-12",
+     "title": "Sesión 2",
+     "sets": [
+      2,
+      3,
+      2,
+      2,
+      {
+       "max": true,
+       "min": 4
+      }
+     ],
+     "complementary": [
+      "colgado"
+     ],
+     "content": "5 series con un mínimo de 2:00 de descanso entre series + agarre (colgado activo).",
+     "after": "Después: un día completo de descanso."
+    },
+    {
+     "n": 3,
+     "date": "2026-11-14",
+     "title": "Sesión 3",
+     "sets": [
+      3,
+      4,
+      2,
+      2,
+      {
+       "max": true,
+       "min": 4
+      }
+     ],
+     "complementary": [],
+     "content": "5 series con un mínimo de 2:00 de descanso entre series.",
+     "after": "Después: dos días completos de descanso."
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "title": "Segunda semana",
+   "focus": "Sesiones 4–6",
+   "sessions": [
+    {
+     "n": 4,
+     "date": "2026-11-16",
+     "title": "Sesión 4",
+     "sets": [
+      3,
+      4,
+      3,
+      3,
+      {
+       "max": true,
+       "min": 4
+      }
+     ],
+     "complementary": [
+      "hollow",
+      "deadbug"
+     ],
+     "content": "5 series con un mínimo de 2:00 de descanso entre series + core (hollow body hold y dead bug).",
+     "after": "Después: un día completo de descanso."
+    },
+    {
+     "n": 5,
+     "date": "2026-11-18",
+     "title": "Sesión 5",
+     "sets": [
+      3,
+      4,
+      3,
+      3,
+      {
+       "max": true,
+       "min": 5
+      }
+     ],
+     "complementary": [
+      "farmer"
+     ],
+     "content": "5 series con un mínimo de 2:00 de descanso entre series + agarre (farmer hold).",
+     "after": "Después: un día completo de descanso."
+    },
+    {
+     "n": 6,
+     "date": "2026-11-20",
+     "title": "Sesión 6",
+     "sets": [
+      4,
+      5,
+      4,
+      4,
+      {
+       "max": true,
+       "min": 6
+      }
+     ],
+     "complementary": [],
+     "content": "5 series con un mínimo de 2:00 de descanso entre series.",
+     "after": "Después: dos días completos de descanso (sábado 21 y domingo 22) antes del test."
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "title": "Test de máximo",
+   "focus": "Tras dos días completos de descanso",
+   "sessions": [
+    {
+     "date": "2026-11-23",
+     "test": true,
+     "title": "Test de máximo de dominadas",
+     "sets": [
+      {
+       "max": true,
+       "min": null
+      }
+     ],
+     "content": "Una serie al máximo con técnica estricta, tras un buen calentamiento."
+    }
+   ]
+  }
+ ]
+}
