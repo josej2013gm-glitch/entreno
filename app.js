@@ -70,28 +70,57 @@ function render() {
 window.addEventListener('hashchange', () => { if (S.user) render(); });
 
 // ================================================================== PANEL
-function baremoCard(best1000, best50) {
-  const maxBy = kind => S.extras.filter(e => e.kind === kind && e.best).reduce((a, e) => (!a || e.best > a.best ? e : a), null);
-  const sj = maxBy('salto'), dm = maxBy('dominadas');
-  const rows = [
-    { key: 'salto', val: sj?.best, date: sj?.date },
-    { key: 'dominadas', val: dm?.best, date: dm?.date },
-    { key: 'c50', val: best50?.time, date: best50?.date },
-    { key: 'c1000', val: best1000?.time, date: best1000?.date },
-  ].map(r => ({ ...r, res: SC.score(r.key, r.val) }));
-  const done = rows.filter(r => r.res);
-  const elim = done.some(r => r.res.grade === 0);
-  const media = done.length === 4 && !elim ? done.reduce((a, r) => a + r.res.grade, 0) / 4 : null;
-  const tone = g => (g === 0 ? 'red' : g <= 6 ? 'amber' : g <= 8 ? '' : 'green');
-  return `<div class="card"><div class="row between"><h2>Nota según el baremo oficial</h2>
-    <span>${media != null ? `Media <b style="font-size:1.3rem">${media.toFixed(2).replace('.', ',')}</b>` : elim ? '<span class="badge red">Alguna prueba en eliminación</span>' : `<span class="muted small">Media cuando tengas las 4 pruebas</span>`}</span></div>
-    <div class="kpis" style="margin:8px 0 0">${rows.map(r => `<div class="kpi">
-      <div class="label">${esc(SC.BAREMO[r.key].label)}</div>
-      ${r.res ? `<div class="row between"><div class="value">${esc(SC.BAREMO[r.key].fmt(r.val))}</div><span class="badge ${tone(r.res.grade)}" style="font-size:1rem">${r.res.grade === 0 ? 'ELIMINACIÓN' : 'Nota ' + r.res.grade}</span></div>
-        <div class="sub">${A.fmtDate(r.date)} · ${esc(SC.gapText(r.key, r.res))}</div>`
-        : `<div class="value muted">—</div><div class="sub">Sin marca registrada${r.key === 'salto' || r.key === 'dominadas' ? ' (regístrala en <a href="#extras">Extras</a>)' : ''}</div>`}
-    </div>`).join('')}</div>
-    <p class="small muted" style="margin:8px 0 0">Mejor marca registrada en cada prueba: salto y dominadas desde Extras; 50 m y 1000 m desde los tests y simulacros. En el 50 m, una marca con centésimas se puntúa con el tramo inferior (7,15 s → tramo de 7,2 = nota 8).</p></div>`;
+const gradeTone = g => (g === 0 ? 'red' : g <= 6 ? 'amber' : g <= 8 ? '' : 'green');
+const gradeBadge = res => (res ? `<span class="badge ${gradeTone(res.grade)}">${res.grade === 0 ? 'ELIMINACIÓN' : 'Nota ' + res.grade}</span>` : '');
+/** Mejor y último registro de cada prueba con su nota del baremo */
+function testsRows() {
+  const byDate = arr => [...arr].sort((a, b) => a.date.localeCompare(b.date) || String(a.updatedAt || '').localeCompare(String(b.updatedAt || '')));
+  const ext = kind => byDate(S.extras.filter(e => e.kind === kind && e.best));
+  const sj = ext('salto'), dm = ext('dominadas'), t50 = A.tests50(S.sessions), sims = A.simulacros1000(S.sessions);
+  const mk = (key, list, val, better) => {
+    if (!list.length) return { key, best: null, last: null };
+    const last = list.at(-1); const best = list.reduce((a, x) => (better(val(x), val(a)) ? x : a));
+    return { key, best: { val: val(best), date: best.date, res: SC.score(key, val(best)) }, last: { val: val(last), date: last.date, res: SC.score(key, val(last)) }, n: list.length };
+  };
+  return [
+    mk('salto', sj, e => e.best, (a, b) => a > b),
+    mk('dominadas', dm, e => e.best, (a, b) => a > b),
+    mk('c50', t50, t => t.time, (a, b) => a < b),
+    mk('c1000', sims, t => t.time, (a, b) => a < b),
+  ];
+}
+function baremoCard() {
+  const rows = testsRows();
+  const media = which => { const r = rows.map(x => x[which]?.res).filter(Boolean);
+    if (r.length < 4) return '<span class="muted small">—</span>';
+    if (r.some(x => x.grade === 0)) return '<span class="badge red">Eliminación</span>';
+    return `<b>${(r.reduce((a, x) => a + x.grade, 0) / 4).toFixed(2).replace('.', ',')}</b>`; };
+  const cell = (key, m) => (m ? `<div class="value" style="font-size:1.25rem">${esc(SC.BAREMO[key].fmt(m.val))} ${gradeBadge(m.res)}</div><div class="sub">${A.fmtDate(m.date)}</div>` : '<div class="muted">—</div>');
+  return `<div class="card"><h2>Pruebas · nota según el baremo oficial</h2>
+    <div class="table-wrap"><table class="table">
+      <thead><tr><th>Prueba</th><th>Mejor registro</th><th>Último registro</th><th>Siguiente nota (desde tu mejor)</th></tr></thead>
+      <tbody>${rows.map(r => `<tr><td><b>${esc(SC.BAREMO[r.key].label)}</b>${r.n ? `<div class="small muted">${r.n} registro${r.n === 1 ? '' : 's'}</div>` : ''}</td>
+        <td>${cell(r.key, r.best)}</td><td>${cell(r.key, r.last)}</td>
+        <td class="small">${r.best ? esc(SC.gapText(r.key, r.best.res)) : (r.key === 'salto' || r.key === 'dominadas' ? 'Regístralo en <a href="#extras">Extras</a>' : 'Registra un test')}</td></tr>`).join('')}
+        <tr><td><b>Media</b></td><td>${media('best')}</td><td>${media('last')}</td><td></td></tr></tbody>
+    </table></div>
+    <p class="small muted" style="margin:6px 0 0">Salto y flexión de brazos (mejor serie de dominadas) salen de Extras; 50 m y 1000 m, de tests y simulacros. En el 50 m una marca con centésimas se puntúa con el tramo inferior (7,15 s → nota 8).</p></div>`;
+}
+/** Km, % de calidad y dominadas de esta semana y la anterior */
+function weeklyCard() {
+  const wk = A.weekKey(today()), prev = A.addDays(wk, -7);
+  const vol = A.weeklyVolume(S.sessions);
+  const w = k => vol.find(x => x.week === k) || { km: 0, quality: 0, sessions: 0 };
+  const pulls = k => { const l = S.extras.filter(e => e.kind === 'dominadas' && A.weekKey(e.date) === k); return { reps: l.reduce((a, e) => a + (e.total || 0), 0), n: l.length }; };
+  const adv = A.volumeAdvice(S.sessions);
+  const col = (title, k) => { const v = w(k), p = pulls(k), q = v.km ? Math.round(v.quality / v.km * 100) : 0;
+    return `<div class="kpi"><div class="label">${title}</div>
+      <div class="row between"><div><div class="value">${km(v.km)} km</div><div class="sub">${v.sessions} sesiones de carrera</div></div>
+        <div><div class="value">${v.km ? q + ' %' : '—'}</div><div class="sub">calidad (${km(v.quality)} km)</div></div>
+        <div><div class="value">${p.reps}</div><div class="sub">dominadas (${p.n} sesión${p.n === 1 ? '' : 'es'})</div></div></div></div>`; };
+  return `<div class="card"><h2>Semana</h2><div class="grid grid-2">
+    ${col(`Esta semana (desde el ${A.fmtDate(wk).slice(0, 5)})`, wk)}${col(`Semana anterior (${A.fmtDate(prev).slice(0, 5)})`, prev)}</div>
+    <p class="small muted" style="margin:6px 0 0">Máximo recomendado esta semana: ${adv.maxNext != null ? km(adv.maxNext) + ' km' : '—'}${adv.deload ? ' (semana de descarga)' : ''} · calidad ideal 20–25 % de los km.</p></div>`;
 }
 function renderPanel() {
   const el = $('#view-panel');
@@ -100,14 +129,10 @@ function renderPanel() {
   const obj1000 = Number(S.settings.objective1000), obj50 = Number(S.settings.objective50);
   const wp = A.workPace(S.settings, S.sessions), ladder = A.ladderState(S.sessions), vol = A.volumeAdvice(S.sessions);
   const weeks = A.weeklyVolume(S.sessions);
-  const thisWeek = weeks.find(w => w.week === A.weekKey(today()));
   const plan = activePlan(); const dm = doneMap();
   const upcoming = plan ? plan.weeks.flatMap(w => w.sessions).filter(s => s.date >= today() && !dm.has(`${plan.id}|${s.id}`)).slice(0, 3) : [];
   const pplan = activePullPlan(); const pdm = pullDoneMap();
   const pullUp = pplan ? pplan.weeks.flatMap(w => w.sessions).filter(s => s.date >= today() && !pdm.has(`${pplan.id}|${s.id}`)).slice(0, 2) : [];
-  const lastJump = S.extras.filter(e => e.kind === 'salto'), lastPull = S.extras.filter(e => e.kind === 'dominadas');
-  const bestJump = lastJump.length ? Math.max(...lastJump.map(e => e.best || 0)) : null;
-  const bestPull = lastPull.length ? Math.max(...lastPull.map(e => e.best || 0)) : null;
 
   if (!S.sessions.length && !S.plans.length) {
     el.innerHTML = `<div class="card"><h1>¡Bienvenido!</h1><p>Aún no hay datos. Para empezar:</p>
@@ -116,17 +141,7 @@ function renderPanel() {
       <div class="row"><button class="btn primary" id="q-hist">Importar historial incluido</button><button class="btn" id="q-plan">Cargar plan Bloque I</button></div></div>`;
     $('#q-hist').onclick = importHistorial; $('#q-plan').onclick = loadBundledPlan; return;
   }
-  el.innerHTML = `${baremoCard(best1000, best50)}
-  <div class="kpis">
-    <div class="kpi"><div class="label">Último 1000 m</div><div class="value">${last ? A.fmtTime(last.time) : '—'}</div><div class="sub">Objetivo ${A.fmtTime(obj1000)}${last ? ` · faltan ${Math.max(0, last.time - obj1000)} s` : ''}${best1000 && last && best1000.time < last.time ? ` · mejor ${A.fmtTime(best1000.time)}` : ''}</div></div>
-    <div class="kpi"><div class="label">Mejor 50 m</div><div class="value">${best50 ? A.fmtTime(best50.time, { short: true }) + ' s' : '—'}</div><div class="sub">Objetivo ${obj50.toFixed(2).replace('.', ',')} s${best50 ? ` · faltan ${Math.max(0, best50.time - obj50).toFixed(2).replace('.', ',')} s` : ''}</div></div>
-    <div class="kpi"><div class="label">Km esta semana</div><div class="value">${km(thisWeek?.km || 0)}</div><div class="sub">Máx. recomendado ${vol.maxNext != null ? km(vol.maxNext) : '—'} km${vol.deload ? ' (descarga)' : ''}</div></div>
-    <div class="kpi"><div class="label">Calidad (4 sem.)</div><div class="value">${vol.qualityPct ?? '—'} %</div><div class="sub">Rango ideal 20–25 %</div></div>
-    <div class="kpi"><div class="label">Ritmo de trabajo</div><div class="value">${A.fmtTime(Math.round(wp.rp))}/km</div><div class="sub">400 m en ${A.fmtTime(A.targetFor(400, wp.rp))}</div></div>
-    <div class="kpi"><div class="label">Escalera 1000</div><div class="value">Nivel ${ladder.next}</div><div class="sub">${esc(A.LADDER[ladder.next].name)}</div></div>
-    ${bestJump != null ? `<div class="kpi"><div class="label">Mejor salto pies juntos</div><div class="value">${bestJump} cm</div><div class="sub">${lastJump.length} sesiones</div></div>` : ''}
-    ${bestPull != null ? `<div class="kpi"><div class="label">Mejor serie dominadas</div><div class="value">${bestPull} reps</div><div class="sub">${lastPull.length} sesiones</div></div>` : ''}
-  </div>
+  el.innerHTML = `${baremoCard()}${weeklyCard()}
   <div class="grid grid-2">
     <div class="card"><h2>Próximos entrenamientos</h2>${upcoming.length ? upcoming.map(s => psCard(plan, s, null)).join('') : `<p class="muted">${plan ? 'No quedan sesiones pendientes en el plan activo.' : 'No hay plan cargado.'} <a href="#${plan ? 'ia' : 'plan'}">${plan ? 'Planifica el siguiente bloque' : 'Cargar plan'}</a></p>`}
       ${pullUp.length ? `<h3 style="margin-top:12px">Dominadas</h3>${pullUp.map(s => pullCard(pplan, s, null)).join('')}` : ''}</div>
@@ -366,6 +381,7 @@ function renderSegs() {
       <div><label>Rec. previa</label><input data-f="rest" inputmode="decimal" value="${esc(g.rest)}" placeholder="2:00"></div>
       <div><button class="btn small danger" data-del="${i}" title="Quitar">✕</button></div>
       ${g.kind === 'test1000' ? `<div class="splits"><label>Parciales 400 / 400 / 200 (separados por espacios)</label><input data-f="splits" value="${esc(g.splits)}" placeholder="1:22 1:23 0:40"></div>` : ''}
+      ${g.kind === 'test50' || g.kind === 'test1000' ? `<div class="splits"><label style="display:flex;gap:8px;align-items:center;font-weight:500"><input type="checkbox" data-x="1" ${g.excluded ? 'checked' : ''} style="width:auto"> Excluir esta marca de estadísticas y notas (p. ej. error de cronometraje)</label></div>` : ''}
       <div class="info">${p ? `Ritmo ${A.fmtPace(p)}` : ''}${diff != null ? ` · ${diff > 0 ? '+' : ''}${String(diff).replace('.', ',')} s vs objetivo ${Math.abs(diff) <= 1 ? '✅' : diff > 2 ? '🔴' : diff > 1 ? '🟠' : '⚡'}` : ''}${g.excluded ? ' · excluido de estadísticas' : ''}</div>
     </div>`;
   }).join('') || '<p class="muted">Sin partes. Una sesión de fuerza puede guardarse solo con notas.</p>';
@@ -375,6 +391,7 @@ function renderSegs() {
     $$('[data-f]', row).forEach(inp => inp.addEventListener('input', () => { d.segments[i][inp.dataset.f] = inp.value; }));
   });
   $$('[data-del]', box).forEach(b => b.onclick = () => { d.segments.splice(Number(b.dataset.del), 1); renderSegs(); });
+  $$('[data-x]', box).forEach(cb => cb.onchange = () => { d.segments[Number(cb.closest('.seg').dataset.i)].excluded = cb.checked; });
   updateInfo();
   function updateInfo() {
     const tot = d.segments.reduce((a, g) => a + (Number(g.dist) || 0), 0) / 1000;
